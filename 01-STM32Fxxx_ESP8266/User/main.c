@@ -72,8 +72,7 @@ int main(void) {
 	ESP8266_WaitReady(&ESP8266);
 	
 	/* Connect to wifi and save settings */
-	//ESP8266_WifiConnect(&ESP8266, "your SSID", "your password");
-	ESP8266_WifiConnect(&ESP8266, "Majerle LAN2", "majerle_internet_private");
+	ESP8266_WifiConnect(&ESP8266, "your SSID", "your password");
 	
 	/* Wait till finish */
 	ESP8266_WaitReady(&ESP8266);

@@ -64,7 +64,9 @@ v0.1 (January 24, 2016)
 	First stable release
 \endverbatim
  *
- * \section sect_download Download
+ * \section sect_download Download and resources
+ *
+ * \par Download library
  *
  * Here are links to download links for library in all versions, current and older releases.
  *
@@ -72,9 +74,37 @@ v0.1 (January 24, 2016)
  *
  * Download latest: <a href="/download/esp8266-at-commands-parser-v0-1/">ESP8266 AT commands parser V0.1</a>
  *
+ * \par External sources
+ *
+ * Here is a list of external sources you should keep in mind when using ESP8266 module:
+ *   - <a href="http://bbs.espressif.com">ESP8266 official forum</a>
+ *   - <a href="http://bbs.espressif.com/viewtopic.php?f=16&t=1613">Flashing ESP8266 to latest ESP AT firmware</a>
+ *
  * \section sect_bugs Bugs report
  *
  * In case, you find any bug, please report it to official <a href="https://github.com/MaJerle/ESP8266_AT_Commands_parser">Github</a> website of this project and I will try to fix  it.
+ *
+ * \section sect_license License
+ *
+\verbatim
+----------------------------------------------------------------------
+Copyright (C) Tilen Majerle, 2016
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+ 
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+----------------------------------------------------------------------
+\endverbatim
+ *
  */
  
 /**
