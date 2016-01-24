@@ -1,4 +1,4 @@
-# ESP8266_AT_Commands_parser
+# ESP8266 AT Commands parser
 Platform independent ESP8266 AT commands parser for ESP8266
 
 Please follow link below for entire documentation.
