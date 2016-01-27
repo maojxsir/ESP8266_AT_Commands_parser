@@ -175,6 +175,12 @@ Data Fields</h2></td></tr>
 <tr class="separator:a8b1439648dbf5c4b7e95a7d2a90354a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a806d03e3492805b92a11fac8f8795d17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_s_p8266___connected_stations__t.html">ESP8266_ConnectedStations_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266__t.html#a806d03e3492805b92a11fac8f8795d17">ConnectedStations</a></td></tr>
 <tr class="separator:a806d03e3492805b92a11fac8f8795d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82a7fa405a9cc1cf69136e9e05cf6b3f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266__t.html#a82a7fa405a9cc1cf69136e9e05cf6b3f">TotalBytesReceived</a></td></tr>
+<tr class="separator:a82a7fa405a9cc1cf69136e9e05cf6b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed53d9585f6509528e6de5cd6408d82e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266__t.html#aed53d9585f6509528e6de5cd6408d82e">TotalBytesSent</a></td></tr>
+<tr class="separator:aed53d9585f6509528e6de5cd6408d82e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0e9a98236a17c3cd170898ed5644a90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_s_p8266___connection__t.html">ESP8266_Connection_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266__t.html#ad0e9a98236a17c3cd170898ed5644a90">SendDataConnection</a></td></tr>
+<tr class="separator:ad0e9a98236a17c3cd170898ed5644a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad379425b313803f9783eea994a6cb61"><td class="memItemLeft" ><a class="anchor" id="aad379425b313803f9783eea994a6cb61"></a>
 union {</td></tr>
 <tr class="memitem:a89a9eca55980a52ab986932e1a723b4f"><td class="memItemLeft" >
@@ -472,7 +478,7 @@ union {</td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Pinging settings </p>
+<p>Pinging structure </p>
 
 </div>
 </div>
@@ -486,6 +492,19 @@ union {</td></tr>
       </table>
 </div><div class="memdoc">
 <p>Result status as returned from last function call. This parameter can be a value of <a class="el" href="group___e_s_p8266___typedefs.html#ga1af08e1b8714d83ee9cff523713aa1c9">ESP8266_Result_t</a> enumeration </p>
+
+</div>
+</div>
+<a class="anchor" id="ad0e9a98236a17c3cd170898ed5644a90"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_e_s_p8266___connection__t.html">ESP8266_Connection_t</a>* SendDataConnection</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Pointer to currently active connection to sent data </p>
 
 </div>
 </div>
@@ -658,6 +677,32 @@ union {</td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a82a7fa405a9cc1cf69136e9e05cf6b3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TotalBytesReceived</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Total number of bytes ESP8266 module has received from network and sent to our stack </p>
+
+</div>
+</div>
+<a class="anchor" id="aed53d9585f6509528e6de5cd6408d82e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t TotalBytesSent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Total number of network data bytes we have sent to ESP8266 module for transmission </p>
+
+</div>
+</div>
 <a class="anchor" id="afe4a49991f1b004719fa0dc87f16013c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -716,7 +761,7 @@ union {</td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_e_s_p8266__t.html">ESP8266_t</a></li>
-    <li class="footer">Generated on Sun Jan 24 2016 11:24:21 for ESP8266 AT Commands parser by
+    <li class="footer">Generated on Wed Jan 27 2016 16:54:11 for ESP8266 AT Commands parser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

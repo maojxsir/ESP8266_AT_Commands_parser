@@ -113,6 +113,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 Features</h1>
 <pre class="fragment">- Supports official AT commands software from Espressif Systems (currently, version AT 0.52 is supported)
 - Supports different platforms (written in ANSI C)
+- Supports RAM limited embedded systems
 - Event based system with callback functions. Almost none blocking functions except one which are needed
 - Supports multiple connections at the same time
 - Supports client and/or server mode
@@ -120,16 +121,31 @@ Features</h1>
 - Supports ping to other server
     
 - Free to use
+</pre><h1><a class="anchor" id="sect_requirements"></a>
+Requirements</h1>
+<p>To use this library, you must:</p>
+<pre class="fragment">    - Have working ESP8266 module (I use ESP01 and ESP07 to test this library) with proper wiring to ESP8266 module with UART and RESET pin
+    - Always update ESP8266 module with latest official AT commands software provided by Espressif Systems (Link for more info in Resources section)
+    - Have a microcontroller which has U(S)ART capability to communicate with module
 </pre><h1><a class="anchor" id="sect_changelog"></a>
 Changelog</h1>
-<pre class="fragment">v0.1 (January 24, 2016)
-    First stable release
+<pre class="fragment">v0.2 (January , 2016)
+    - Function ESP8266_RequestSendData has been improved to remove waiting for ESP8266 to answer with "&gt; " before continue 
+    - Added ESP8266_USE_PING macro to enable or disable ping feature on ESP8266 module
+    - Added ESP8266_USE_FIRMWAREUPDATE macro to enable or disable updating ESP8266 firmware via network from official Espressif systems servers
+    - Added ESP8266_USE_APSEARCH macro to enable or disable searching for access points with device
+    - Added ESP8266_MAX_DETECTED_AP macro to set maximal number of devices stack will parse and report to user
+    - Added ESP8266_MAX_CONNECTION_NAME macro to specify maximal length of connection name when creating new connection as client
+    - Improved behaviour when connection buffer is less than packet buffer from ESP8266. In this case, received callback is called multiple time
+
+v0.1 (January 24, 2016)
+    - First stable release
 </pre><h1><a class="anchor" id="sect_download"></a>
 Download and resources</h1>
 <dl class="section user"><dt>Download library</dt><dd></dd></dl>
 <p>Here are links to download links for library in all versions, current and older releases.</p>
 <p>If you want to download all examples done for this library, please follow <a href="https://github.com/MaJerle/ESP8266_AT_Commands_parser">Github</a> and download repository.</p>
-<p>Download latest: <a href="/download/esp8266-at-commands-parser-v0-1/">ESP8266 AT commands parser V0.1</a></p>
+<p>Download latest library version: <a href="/download/esp8266-at-commands-parser-v0-1/">ESP8266 AT commands parser V0.1</a></p>
 <dl class="section user"><dt>External sources</dt><dd></dd></dl>
 <p>Here is a list of external sources you should keep in mind when using ESP8266 module:</p><ul>
 <li><a href="http://bbs.espressif.com">ESP8266 official forum</a></li>
@@ -161,7 +177,7 @@ along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jan 24 2016 11:24:21 for ESP8266 AT Commands parser by
+    <li class="footer">Generated on Wed Jan 27 2016 16:54:11 for ESP8266 AT Commands parser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['offset',['Offset',['../struct_e_s_p8266___a_p__t.html#a2a5210402df8d7743d0790bb89976a5b',1,'ESP8266_AP_t']]],
-  ['out',['Out',['../struct___b_u_f_f_e_r__t.html#a9c564f31214fd1098e911b1a91c735b5',1,'_BUFFER_t']]]
+  ['name',['Name',['../struct_e_s_p8266___connection__t.html#abb0b6a9e1bd8c3db91d855dd60425e6e',1,'ESP8266_Connection_t']]],
+  ['number',['Number',['../struct_e_s_p8266___connection__t.html#a75dcd6a3263c952b0a275b10340187ad',1,'ESP8266_Connection_t']]]
 ];

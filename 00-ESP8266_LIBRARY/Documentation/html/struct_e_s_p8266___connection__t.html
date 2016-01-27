@@ -146,12 +146,16 @@ Data Fields</h2></td></tr>
 <tr class="memitem:a0aba9b5bf6ab83aff8549148a736a878"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0aba9b5bf6ab83aff8549148a736a878"></a>
 char *&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
 <tr class="separator:a0aba9b5bf6ab83aff8549148a736a878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b937c433cad1b26446b7313c5cb10f9"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#a8b937c433cad1b26446b7313c5cb10f9">DataSize</a></td></tr>
+<tr class="separator:a8b937c433cad1b26446b7313c5cb10f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd97c788f846387dcf890b9760433ba8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#afd97c788f846387dcf890b9760433ba8">LastPart</a></td></tr>
+<tr class="separator:afd97c788f846387dcf890b9760433ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae357cac64b71de110f49b7fe116e08de"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#ae357cac64b71de110f49b7fe116e08de">CallDataReceived</a></td></tr>
 <tr class="separator:ae357cac64b71de110f49b7fe116e08de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56ded8906a8cb59912cfc50be9adab45"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#a56ded8906a8cb59912cfc50be9adab45">ContentLength</a></td></tr>
 <tr class="separator:a56ded8906a8cb59912cfc50be9adab45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa89339d079ce1d91fdfa754d0969a8a5"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#aa89339d079ce1d91fdfa754d0969a8a5">Name</a> [64]</td></tr>
-<tr class="separator:aa89339d079ce1d91fdfa754d0969a8a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0b6a9e1bd8c3db91d855dd60425e6e"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#abb0b6a9e1bd8c3db91d855dd60425e6e">Name</a> [<a class="el" href="group___e_s_p8266___c_o_n_f.html#ga34ab5a49de1ee8ec8e93de682a151993">ESP8266_MAX_CONNECTION_NAME</a>]</td></tr>
+<tr class="separator:abb0b6a9e1bd8c3db91d855dd60425e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabcaa4cd76d21f850cddf709e96b0428"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#aabcaa4cd76d21f850cddf709e96b0428">UserParameters</a></td></tr>
 <tr class="separator:aabcaa4cd76d21f850cddf709e96b0428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8794d3e6b3eee8ad91769f3a37dd3d89"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_s_p8266___connection__t.html#a8794d3e6b3eee8ad91769f3a37dd3d89">HeadersDone</a></td></tr>
@@ -186,7 +190,9 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Number of bytes received in current data packet </p>
+<p>Number of bytes received in current +IPD data package. U Use </p><ul>
+<li>DataSize to detect how many data bytes are in current package when callback function is called for received data </li>
+</ul>
 
 </div>
 </div>
@@ -229,6 +235,19 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8b937c433cad1b26446b7313c5cb10f9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t DataSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of bytes in current data package. Becomes useful, when we have buffer size for data less than ESP8266 IPD statement has data for us. In this case, big packet from ESP8266 is split into several packages and this argument represent package size </p>
+
+</div>
+</div>
 <a class="anchor" id="a7857285f5890e7fe3424eba54264804e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -268,12 +287,25 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa89339d079ce1d91fdfa754d0969a8a5"></a>
+<a class="anchor" id="afd97c788f846387dcf890b9760433ba8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char Name[64]</td>
+          <td class="memname">uint8_t LastPart</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>When connection buffer is less than ESP8266 max +IPD possible data length, this parameter can be used if received part of data is last on one +IPD packet. When data buffer is bigger, this parameter is always set to 1 </p>
+
+</div>
+</div>
+<a class="anchor" id="abb0b6a9e1bd8c3db91d855dd60425e6e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char Name[<a class="el" href="group___e_s_p8266___c_o_n_f.html#ga34ab5a49de1ee8ec8e93de682a151993">ESP8266_MAX_CONNECTION_NAME</a>]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -378,7 +410,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>Data</b></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="struct_e_s_p8266___connection__t.html">ESP8266_Connection_t</a></li>
-    <li class="footer">Generated on Sun Jan 24 2016 11:24:21 for ESP8266 AT Commands parser by
+    <li class="footer">Generated on Wed Jan 27 2016 16:54:11 for ESP8266 AT Commands parser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

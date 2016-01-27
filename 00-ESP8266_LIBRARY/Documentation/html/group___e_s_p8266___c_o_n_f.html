@@ -128,6 +128,22 @@ Macros</h2></td></tr>
 <tr class="memitem:gab87363070a5f4bccb63983d050067e7e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#gab87363070a5f4bccb63983d050067e7e">ESP8266_CONNECTION_BUFFER_SIZE</a>&#160;&#160;&#160;5842</td></tr>
 <tr class="memdesc:gab87363070a5f4bccb63983d050067e7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer size for connection data.  <a href="#gab87363070a5f4bccb63983d050067e7e">More...</a><br /></td></tr>
 <tr class="separator:gab87363070a5f4bccb63983d050067e7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga10761ef58a6751b64deb4942f9822ff3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga10761ef58a6751b64deb4942f9822ff3">ESP8266_USE_PING</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga10761ef58a6751b64deb4942f9822ff3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables (1) or disables (0) pinging functionality to other servers.  <a href="#ga10761ef58a6751b64deb4942f9822ff3">More...</a><br /></td></tr>
+<tr class="separator:ga10761ef58a6751b64deb4942f9822ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga294173d6048789602fb466c411cc0947"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga294173d6048789602fb466c411cc0947">ESP8266_USE_FIRMWAREUPDATE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:ga294173d6048789602fb466c411cc0947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables (1) or disables (0) update ESP8288 AT software via network using AT commands.  <a href="#ga294173d6048789602fb466c411cc0947">More...</a><br /></td></tr>
+<tr class="separator:ga294173d6048789602fb466c411cc0947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0aee29733ca0fd43bc0a0ce43ce53987"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga0aee29733ca0fd43bc0a0ce43ce53987">ESP8266_USE_APSEARCH</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ga0aee29733ca0fd43bc0a0ce43ce53987"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables (1) or disables (0) feature to search network for Acces points.  <a href="#ga0aee29733ca0fd43bc0a0ce43ce53987">More...</a><br /></td></tr>
+<tr class="separator:ga0aee29733ca0fd43bc0a0ce43ce53987"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4bf506daa2cd73e10e45298cda036658"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga4bf506daa2cd73e10e45298cda036658">ESP8266_MAX_DETECTED_AP</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:ga4bf506daa2cd73e10e45298cda036658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets how many AP stations stack will parse which are received from ESP8266 module.  <a href="#ga4bf506daa2cd73e10e45298cda036658">More...</a><br /></td></tr>
+<tr class="separator:ga4bf506daa2cd73e10e45298cda036658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga34ab5a49de1ee8ec8e93de682a151993"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ga34ab5a49de1ee8ec8e93de682a151993"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga34ab5a49de1ee8ec8e93de682a151993">ESP8266_MAX_CONNECTION_NAME</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memdesc:ga34ab5a49de1ee8ec8e93de682a151993"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets number of bytes each connection can use for identification name used by user when creating client connection using ESP8266_CreateClientConnection. <br /></td></tr>
+<tr class="separator:ga34ab5a49de1ee8ec8e93de682a151993"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Configuration parameters for ESP8266 library. </p>
@@ -145,7 +161,24 @@ Macros</h2></td></tr>
 <p>Buffer size for connection data. </p>
 <p>Data packs from ESP module (+IPD statements) have normally up to 1460 bytes on one packet.</p>
 <p>However, it may happen, tnat ESP will send you a pack of data with 4x normal size (4 * 1460) bytes.</p>
-<p>If you want all that data, you should have at least 4 * 1460 bytes of data available, otherwise, data will be ignored if buffer will have overflow </p>
+<p>If you want all that data, you should have at least 4 * 1460 bytes of data available, otherwise, data will be ignored if buffer will have overflow</p>
+<dl class="section note"><dt>Note</dt><dd>Buffer must be at least 256 bytes or there might be unexpected results </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga4bf506daa2cd73e10e45298cda036658"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ESP8266_MAX_DETECTED_AP&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets how many AP stations stack will parse which are received from ESP8266 module. </p>
+<p>Set to 10 by default.</p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="group___e_s_p8266___c_o_n_f.html#ga0aee29733ca0fd43bc0a0ce43ce53987">ESP8266_USE_APSEARCH</a> must be enabled for this feature </dd></dl>
 
 </div>
 </div>
@@ -182,6 +215,52 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga0aee29733ca0fd43bc0a0ce43ce53987"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ESP8266_USE_APSEARCH&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables (1) or disables (0) feature to search network for Acces points. </p>
+<p>You can disable this feature if you know exact network where you will connect to save some memory </p>
+
+</div>
+</div>
+<a class="anchor" id="ga294173d6048789602fb466c411cc0947"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ESP8266_USE_FIRMWAREUPDATE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables (1) or disables (0) update ESP8288 AT software via network using AT commands. </p>
+<p>When using ESP8266 with at least 8Mbit flash memory and proper AT software flashed on it (AT with boot support), ESP8266 can self update firmware if proper AT command is used.</p>
+<p>This macro enables/disables functions for firmware updating </p>
+
+</div>
+</div>
+<a class="anchor" id="ga10761ef58a6751b64deb4942f9822ff3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ESP8266_USE_PING&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Enables (1) or disables (0) pinging functionality to other servers. </p>
+<p>When enabled, additional structure for pinging is added to main structure, but it is removed if feature is disabled </p>
+
+</div>
+</div>
 <a class="anchor" id="ga4cb4022faf4f1bce013594cc2f4f4d06"></a>
 <div class="memitem">
 <div class="memproto">
@@ -202,7 +281,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Jan 24 2016 11:24:21 for ESP8266 AT Commands parser by
+    <li class="footer">Generated on Wed Jan 27 2016 16:54:10 for ESP8266 AT Commands parser by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.10 </li>
   </ul>

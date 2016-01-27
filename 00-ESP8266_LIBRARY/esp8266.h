@@ -3,7 +3,7 @@
  * @email   tilen@majerle.eu
  * @website http://stm32f4-discovery.com
  * @link    
- * @version v0.1
+ * @version v0.2
  * @ide     Keil uVision
  * @license GNU GPL v3
  * @brief   Library for ESP8266 module using AT commands for embedded systems
@@ -28,7 +28,7 @@
 \endverbatim
  */
 #ifndef ESP8266_H
-#define ESP8266_H 010
+#define ESP8266_H 020
 
 /* C++ detection */
 #ifdef __cplusplus
@@ -48,6 +48,7 @@ extern "C" {
 \verbatim
 - Supports official AT commands software from Espressif Systems (currently, version AT 0.52 is supported)
 - Supports different platforms (written in ANSI C)
+- Supports RAM limited embedded systems
 - Event based system with callback functions. Almost none blocking functions except one which are needed
 - Supports multiple connections at the same time
 - Supports client and/or server mode
@@ -57,11 +58,30 @@ extern "C" {
 - Free to use
 \endverbatim
  *
+ * \section sect_requirements Requirements
+ *
+ * To use this library, you must:
+ *
+\verbatim
+	- Have working ESP8266 module (I use ESP01 and ESP07 to test this library) with proper wiring to ESP8266 module with UART and RESET pin
+	- Always update ESP8266 module with latest official AT commands software provided by Espressif Systems (Link for more info in Resources section)
+	- Have a microcontroller which has U(S)ART capability to communicate with module
+\endverbatim
+ *
  * \section sect_changelog Changelog
  *
 \verbatim
+v0.2 (January , 2016)
+	- Function ESP8266_RequestSendData has been improved to remove waiting for ESP8266 to answer with "> " before continue 
+	- Added ESP8266_USE_PING macro to enable or disable ping feature on ESP8266 module
+	- Added ESP8266_USE_FIRMWAREUPDATE macro to enable or disable updating ESP8266 firmware via network from official Espressif systems servers
+	- Added ESP8266_USE_APSEARCH macro to enable or disable searching for access points with device
+	- Added ESP8266_MAX_DETECTED_AP macro to set maximal number of devices stack will parse and report to user
+	- Added ESP8266_MAX_CONNECTION_NAME macro to specify maximal length of connection name when creating new connection as client
+	- Improved behaviour when connection buffer is less than packet buffer from ESP8266. In this case, received callback is called multiple time
+
 v0.1 (January 24, 2016)
-	First stable release
+	- First stable release
 \endverbatim
  *
  * \section sect_download Download and resources
@@ -72,7 +92,7 @@ v0.1 (January 24, 2016)
  *
  * If you want to download all examples done for this library, please follow <a href="https://github.com/MaJerle/ESP8266_AT_Commands_parser">Github</a> and download repository.
  *
- * Download latest: <a href="/download/esp8266-at-commands-parser-v0-1/">ESP8266 AT commands parser V0.1</a>
+ * Download latest library version: <a href="/download/esp8266-at-commands-parser-v0-1/">ESP8266 AT commands parser V0.1</a>
  *
  * \par External sources
  *
@@ -104,7 +124,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ----------------------------------------------------------------------
 \endverbatim
- *
  */
  
 /**
@@ -157,7 +176,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* This settings should not be modified */
 #define ESP8266_MAX_CONNECTIONS        5  /*!< Number of maximum active connections on ESP */
-#define ESP8266_MAX_AP                 10 /*!< Number of AP stations saved to received data array */
 #define ESP8266_MAX_CONNECTEDSTATIONS  10 /*!< Number of AP stations saved to received data array */
 
  /* Check for GNUC */
@@ -246,6 +264,7 @@ typedef enum {
 typedef struct {
 	uint8_t InIPD;        /*!< Set to 1 when ESP is in IPD mode with data */
 	uint16_t InPtr;       /*!< Input pointer to save data to buffer */
+	uint16_t PtrTotal;    /*!< Total pointer to count all received data */
 	uint8_t ConnNumber;   /*!< Connection number where IPD is active */
 	uint8_t USART_Buffer; /*!< Set to 1 when data are read from USART buffer or 0 if from temporary buffer */
 } ESP8266_IPD_t;
@@ -259,7 +278,8 @@ typedef struct {
 	uint8_t Client;              /*!< Set to 1 if connection was made as client */
 	uint16_t RemotePort;         /*!< Remote PORT number */
 	uint8_t RemoteIP[4];         /*!< IP address of device */
-	uint32_t BytesReceived;      /*!< Number of bytes received in current data packet */
+	uint32_t BytesReceived;      /*!< Number of bytes received in current +IPD data package. U
+                                        Use @arg DataSize to detect how many data bytes are in current package when callback function is called for received data */
 	uint32_t TotalBytesReceived; /*!< Number of bytes received in entire connection lifecycle */
 	uint8_t WaitForWrapper;      /*!< Status flag, to wait for ">" wrapper on data sent */
 	uint8_t WaitingSentRespond;  /*!< Set to 1 when we have sent data and we are waiting respond */
@@ -268,9 +288,15 @@ typedef struct {
 #else
 	char Data[ESP8266_CONNECTION_BUFFER_SIZE]; /*!< Data array */
 #endif
+	uint16_t DataSize;           /*!< Number of bytes in current data package.
+                                        Becomes useful, when we have buffer size for data less than ESP8266 IPD statement has data for us.
+                                        In this case, big packet from ESP8266 is split into several packages and this argument represent package size */
+	uint8_t LastPart;            /*!< When connection buffer is less than ESP8266 max +IPD possible data length,
+                                        this parameter can be used if received part of data is last on one +IPD packet.
+                                        When data buffer is bigger, this parameter is always set to 1 */
 	uint8_t CallDataReceived;    /*!< Set to 1 when we are waiting for commands to be inactive before we call callback function */
 	uint32_t ContentLength;      /*!< Value of "Content-Length" header if it exists in +IPD data packet */
-	char Name[64];               /*!< Connection name, useful when using as client */
+	char Name[ESP8266_MAX_CONNECTION_NAME]; /*!< Connection name, useful when using as client */
 	void* UserParameters;        /*!< User parameters pointer. Useful when user wants to pass custom data which can later be used in callbacks */
 	uint8_t HeadersDone;         /*!< User option flag to set when headers has been found in response */
 	uint8_t FirstPacket;         /*!< Set to 1 when if first packet in connection received */
@@ -304,8 +330,8 @@ typedef struct {
  * @brief  List of AP stations found on network search
  */
 typedef struct {
-	ESP8266_AP_t AP[ESP8266_MAX_AP]; /*!< Each AP point data */
-	uint8_t Count;                   /*!< Number of valid AP stations */
+	ESP8266_AP_t AP[ESP8266_MAX_DETECTED_AP]; /*!< Each AP point data */
+	uint8_t Count;                            /*!< Number of valid AP stations */
 } ESP8266_APs_t;
 
 /**
@@ -349,49 +375,54 @@ typedef struct {
  * @brief  Main ESP8266 working structure
  */
 typedef struct {
-	uint32_t Baudrate;                                           /*!< Currently used baudrate for ESP module */
-	uint32_t ActiveCommand;                                      /*!< Currently active AT command for module */
-	char ActiveCommandResponse[5][64];                           /*!< List of responses we expect with AT command */
-	uint32_t StartTime;                                          /*!< Time when command was sent */
-	uint32_t Time;                                               /*!< Curent time in milliseconds */
-	uint32_t LastReceivedTime;                                   /*!< Time when last string was received from ESP module */
-	uint32_t Timeout;                                            /*!< Timeout in milliseconds for command to return response */
-	ESP8266_Connection_t Connection[ESP8266_MAX_CONNECTIONS];    /*!< Array of connections */
-	uint8_t STAIP[4];                                            /*!< Assigned IP address for station for ESP module */
-	uint8_t STAGateway[4];                                       /*!< Gateway address for station ESP is using */
-	uint8_t STANetmask[4];                                       /*!< Netmask address for station ESP is using */
-	uint8_t STAMAC[6];                                           /*!< MAC address for station of ESP module */
-	uint8_t APIP[4];                                             /*!< Assigned IP address for softAP for ESP module */
-	uint8_t APGateway[4];                                        /*!< Gateway address ESP for softAP is using */
-	uint8_t APNetmask[4];                                        /*!< Netmask address ESP for softAP is using */
-	uint8_t APMAC[6];                                            /*!< MAC address for softAP of ESP module */
-	ESP8266_Mode_t SentMode;                                     /*!< AP/STA mode we sent to module. This parameter can be a value of @ref ESP8266_Mode_t enumeration */
-	ESP8266_Mode_t Mode;                                         /*!< AT/STA mode which is currently active. This parameter can be a value of @ref ESP8266_Mode_t enumeration */
-	ESP8266_APConfig_t AP;                                       /*!< Configuration settings for ESP when using as Access point mode */
-	ESP8266_IPD_t IPD;                                           /*!< IPD status strucutre. Used when new data are available from module */
-	ESP8266_Ping_t PING;                                         /*!< Pinging settings */
-	ESP8266_ConnectedWifi_t ConnectedWifi;                       /*!< Informations about currently connected wifi network */
-	ESP8266_WifiConnectError_t WifiConnectError;                 /*!< Error code for connection to wifi network. This parameter can be a value of @ref ESP8266_WifiConnectError_t enumeration */
-	int8_t StartConnectionSent;                                  /*!< Connection number which has active CIPSTART command and waits response */
-	ESP8266_ConnectedStations_t ConnectedStations;               /*!< Connected stations to ESP8266 module softAP */
+	uint32_t Baudrate;                                        /*!< Currently used baudrate for ESP module */
+	uint32_t ActiveCommand;                                   /*!< Currently active AT command for module */
+	char ActiveCommandResponse[5][64];                        /*!< List of responses we expect with AT command */
+	uint32_t StartTime;                                       /*!< Time when command was sent */
+	uint32_t Time;                                            /*!< Curent time in milliseconds */
+	uint32_t LastReceivedTime;                                /*!< Time when last string was received from ESP module */
+	uint32_t Timeout;                                         /*!< Timeout in milliseconds for command to return response */
+	ESP8266_Connection_t Connection[ESP8266_MAX_CONNECTIONS]; /*!< Array of connections */
+	uint8_t STAIP[4];                                         /*!< Assigned IP address for station for ESP module */
+	uint8_t STAGateway[4];                                    /*!< Gateway address for station ESP is using */
+	uint8_t STANetmask[4];                                    /*!< Netmask address for station ESP is using */
+	uint8_t STAMAC[6];                                        /*!< MAC address for station of ESP module */
+	uint8_t APIP[4];                                          /*!< Assigned IP address for softAP for ESP module */
+	uint8_t APGateway[4];                                     /*!< Gateway address ESP for softAP is using */
+	uint8_t APNetmask[4];                                     /*!< Netmask address ESP for softAP is using */
+	uint8_t APMAC[6];                                         /*!< MAC address for softAP of ESP module */
+	ESP8266_Mode_t SentMode;                                  /*!< AP/STA mode we sent to module. This parameter can be a value of @ref ESP8266_Mode_t enumeration */
+	ESP8266_Mode_t Mode;                                      /*!< AT/STA mode which is currently active. This parameter can be a value of @ref ESP8266_Mode_t enumeration */
+	ESP8266_APConfig_t AP;                                    /*!< Configuration settings for ESP when using as Access point mode */
+	ESP8266_IPD_t IPD;                                        /*!< IPD status strucutre. Used when new data are available from module */
+#if ESP8266_USE_PING
+	ESP8266_Ping_t PING;                                      /*!< Pinging structure */
+#endif
+	ESP8266_ConnectedWifi_t ConnectedWifi;                    /*!< Informations about currently connected wifi network */
+	ESP8266_WifiConnectError_t WifiConnectError;              /*!< Error code for connection to wifi network. This parameter can be a value of @ref ESP8266_WifiConnectError_t enumeration */
+	int8_t StartConnectionSent;                               /*!< Connection number which has active CIPSTART command and waits response */
+	ESP8266_ConnectedStations_t ConnectedStations;            /*!< Connected stations to ESP8266 module softAP */
+	uint32_t TotalBytesReceived;                              /*!< Total number of bytes ESP8266 module has received from network and sent to our stack */
+	uint32_t TotalBytesSent;                                  /*!< Total number of network data bytes we have sent to ESP8266 module for transmission */
+	ESP8266_Connection_t* SendDataConnection;                 /*!< Pointer to currently active connection to sent data */
 	union {
 		struct {
-			uint8_t STAIPIsSet:1;                                /*!< IP is set */
-			uint8_t STANetmaskIsSet:1;                           /*!< Netmask address is set */
-			uint8_t STAGatewayIsSet:1;                           /*!< Gateway address is set */
-			uint8_t STAMACIsSet:1;                               /*!< MAC address is set */
-			uint8_t APIPIsSet:1;                                 /*!< IP is set */
-			uint8_t APNetmaskIsSet:1;                            /*!< Netmask address is set */
-			uint8_t APGatewayIsSet:1;                            /*!< Gateway address is set */
-			uint8_t APMACIsSet:1;                                /*!< MAC address is set */
-			uint8_t WaitForWrapper:1;                            /*!< We are waiting for wrapper */
-			uint8_t LastOperationStatus:1;                       /*!< Last operations status was OK */
-			uint8_t WifiConnected:1;                             /*!< Wifi is connected to network */
-			uint8_t WifiGotIP:1;                                 /*!< Wifi got IP address from network */
+			uint8_t STAIPIsSet:1;                             /*!< IP is set */
+			uint8_t STANetmaskIsSet:1;                        /*!< Netmask address is set */
+			uint8_t STAGatewayIsSet:1;                        /*!< Gateway address is set */
+			uint8_t STAMACIsSet:1;                            /*!< MAC address is set */
+			uint8_t APIPIsSet:1;                              /*!< IP is set */
+			uint8_t APNetmaskIsSet:1;                         /*!< Netmask address is set */
+			uint8_t APGatewayIsSet:1;                         /*!< Gateway address is set */
+			uint8_t APMACIsSet:1;                             /*!< MAC address is set */
+			uint8_t WaitForWrapper:1;                         /*!< We are waiting for wrapper */
+			uint8_t LastOperationStatus:1;                    /*!< Last operations status was OK */
+			uint8_t WifiConnected:1;                          /*!< Wifi is connected to network */
+			uint8_t WifiGotIP:1;                              /*!< Wifi got IP address from network */
 		} F;
 		uint32_t Value;
 	} Flags;
-	ESP8266_Result_t Result;                                     /*!< Result status as returned from last function call. This parameter can be a value of @ref ESP8266_Result_t enumeration */
+	ESP8266_Result_t Result;                                  /*!< Result status as returned from last function call. This parameter can be a value of @ref ESP8266_Result_t enumeration */
 } ESP8266_t;
 
 /**

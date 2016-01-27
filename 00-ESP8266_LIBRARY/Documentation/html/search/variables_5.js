@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['headersdone',['HeadersDone',['../struct_e_s_p8266___connection__t.html#a8794d3e6b3eee8ad91769f3a37dd3d89',1,'ESP8266_Connection_t']]],
-  ['hidden',['Hidden',['../struct_e_s_p8266___a_p_config__t.html#aabf7614b00cfd9bdd1ef5b92f2c5dbb3',1,'ESP8266_APConfig_t']]]
+  ['firstpacket',['FirstPacket',['../struct_e_s_p8266___connection__t.html#a7857285f5890e7fe3424eba54264804e',1,'ESP8266_Connection_t']]],
+  ['flags',['Flags',['../struct___b_u_f_f_e_r__t.html#aeb3f0fed7dd127f81565f62281a7ae41',1,'_BUFFER_t']]]
 ];

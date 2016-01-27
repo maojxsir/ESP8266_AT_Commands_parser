@@ -307,7 +307,7 @@ int16_t BUFFER_Find(BUFFER_t* Buffer, uint8_t* Data, uint16_t Size) {
 
 			/* We have found data sequence in buffer */
 			if (i == Size) {
-				return retval;
+				return retval - 1;
 			}
 		}
 	}

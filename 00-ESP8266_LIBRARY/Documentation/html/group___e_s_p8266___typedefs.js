@@ -4,6 +4,7 @@ var group___e_s_p8266___typedefs =
       [ "ConnNumber", "struct_e_s_p8266___i_p_d__t.html#a5883c5b53ca5980ea465bfd9893161df", null ],
       [ "InIPD", "struct_e_s_p8266___i_p_d__t.html#a7266966b73b1a032c9cce833cab97b0c", null ],
       [ "InPtr", "struct_e_s_p8266___i_p_d__t.html#a4460926bc4e6b0cf6dc3839a9edc7afe", null ],
+      [ "PtrTotal", "struct_e_s_p8266___i_p_d__t.html#a75995d0a6a8151f8347792d1f407207b", null ],
       [ "USART_Buffer", "struct_e_s_p8266___i_p_d__t.html#a3b9ceb9631e4e7781269a18afcf97089", null ]
     ] ],
     [ "ESP8266_Connection_t", "struct_e_s_p8266___connection__t.html", [
@@ -13,10 +14,12 @@ var group___e_s_p8266___typedefs =
       [ "Client", "struct_e_s_p8266___connection__t.html#a9e271f80091855c837d61514f52c6f5e", null ],
       [ "ContentLength", "struct_e_s_p8266___connection__t.html#a56ded8906a8cb59912cfc50be9adab45", null ],
       [ "Data", "struct_e_s_p8266___connection__t.html#a0aba9b5bf6ab83aff8549148a736a878", null ],
+      [ "DataSize", "struct_e_s_p8266___connection__t.html#a8b937c433cad1b26446b7313c5cb10f9", null ],
       [ "FirstPacket", "struct_e_s_p8266___connection__t.html#a7857285f5890e7fe3424eba54264804e", null ],
       [ "HeadersDone", "struct_e_s_p8266___connection__t.html#a8794d3e6b3eee8ad91769f3a37dd3d89", null ],
       [ "LastActivity", "struct_e_s_p8266___connection__t.html#a7cbcb6205dc37830f4bb5a1b08c7a846", null ],
-      [ "Name", "struct_e_s_p8266___connection__t.html#aa89339d079ce1d91fdfa754d0969a8a5", null ],
+      [ "LastPart", "struct_e_s_p8266___connection__t.html#afd97c788f846387dcf890b9760433ba8", null ],
+      [ "Name", "struct_e_s_p8266___connection__t.html#abb0b6a9e1bd8c3db91d855dd60425e6e", null ],
       [ "Number", "struct_e_s_p8266___connection__t.html#a75dcd6a3263c952b0a275b10340187ad", null ],
       [ "RemoteIP", "struct_e_s_p8266___connection__t.html#a1b2c870d15b2ecb3692b17c6224088bb", null ],
       [ "RemotePort", "struct_e_s_p8266___connection__t.html#a5680c90e2b5a529d72068395a66a249b", null ],
@@ -41,7 +44,7 @@ var group___e_s_p8266___typedefs =
       [ "SSID", "struct_e_s_p8266___a_p__t.html#a56615c5c2470375b74a5bce8cd3a3217", null ]
     ] ],
     [ "ESP8266_APs_t", "struct_e_s_p8266___a_ps__t.html", [
-      [ "AP", "struct_e_s_p8266___a_ps__t.html#a558dc8ef7fb41454879e1c84915b0c07", null ],
+      [ "AP", "struct_e_s_p8266___a_ps__t.html#a1fd99def2fd1cc1439324a1a2528444e", null ],
       [ "Count", "struct_e_s_p8266___a_ps__t.html#a9573390a108b8107db41c67ebe3be78e", null ]
     ] ],
     [ "ESP8266_ConnectedStation_t", "struct_e_s_p8266___connected_station__t.html", [
@@ -89,6 +92,7 @@ var group___e_s_p8266___typedefs =
       [ "Mode", "struct_e_s_p8266__t.html#a4b98996c6d267585766e408a1ffda2f1", null ],
       [ "PING", "struct_e_s_p8266__t.html#a9a009a897dbd54f7d43906ebf7b9f538", null ],
       [ "Result", "struct_e_s_p8266__t.html#aaf4d899bf4110ac2a47ae0dc7dbd9677", null ],
+      [ "SendDataConnection", "struct_e_s_p8266__t.html#ad0e9a98236a17c3cd170898ed5644a90", null ],
       [ "SentMode", "struct_e_s_p8266__t.html#a3d83c5d3d006666be7bdd8f6eac5ff1a", null ],
       [ "STAGateway", "struct_e_s_p8266__t.html#aea1a406555a5efc801800d3182d69407", null ],
       [ "STAGatewayIsSet", "struct_e_s_p8266__t.html#a47a28035544cc70b0e226bada304307c", null ],
@@ -102,6 +106,8 @@ var group___e_s_p8266___typedefs =
       [ "StartTime", "struct_e_s_p8266__t.html#a8d6b0adc47265af653abcb9b5d359ab6", null ],
       [ "Time", "struct_e_s_p8266__t.html#afb4952bec365dc441b645a2ba0fc0379", null ],
       [ "Timeout", "struct_e_s_p8266__t.html#ac32e3b19d6fb5d4056cebee773e128ed", null ],
+      [ "TotalBytesReceived", "struct_e_s_p8266__t.html#a82a7fa405a9cc1cf69136e9e05cf6b3f", null ],
+      [ "TotalBytesSent", "struct_e_s_p8266__t.html#aed53d9585f6509528e6de5cd6408d82e", null ],
       [ "Value", "struct_e_s_p8266__t.html#a8e0dcce3428a8051614e852b8836d0d1", null ],
       [ "WaitForWrapper", "struct_e_s_p8266__t.html#afe4a49991f1b004719fa0dc87f16013c", null ],
       [ "WifiConnected", "struct_e_s_p8266__t.html#af95c0a3b8f2012f77cfc18493a27bd62", null ],
